@@ -15,6 +15,12 @@ database.connect();
 const app: Express = express();
 const port: number | string = process.env.PORT || 3001;
 
+// TinyMCE
+app.use(
+    "/tinymce",
+    express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+// End TinyMCE
 app.use(express.static(`${__dirname}/public`));
 
 app.set("views", `${__dirname}/views`);
@@ -25,12 +31,7 @@ app.use(methodOverride("_method"));
 clientRoutes(app);
 adminRoutes(app);
 
-// TinyMCE
-app.use(
-    "/tinymce",
-    express.static(path.join(__dirname, "node_modules", "tinymce"))
-);
-// End TinyMCE
+
 
 // App Local Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
